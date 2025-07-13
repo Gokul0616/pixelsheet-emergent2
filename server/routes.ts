@@ -120,7 +120,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/spreadsheets/:id/sheets", async (req, res) => {
     try {
       const spreadsheetId = parseInt(req.params.id);
-      const sheets = await storage.getSheetsBySpreadsheet(spreadsheetId);
+      const sheets = await jsonStorage.getSheetsBySpreadsheet(spreadsheetId);
       res.json(sheets);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch sheets" });
@@ -131,7 +131,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const spreadsheetId = parseInt(req.params.id);
       const data = insertSheetSchema.parse({ ...req.body, spreadsheetId });
-      const sheet = await storage.createSheet(data);
+      const sheet = await jsonStorage.createSheet(data);
       res.json(sheet);
     } catch (error) {
       res.status(400).json({ error: "Invalid sheet data" });
@@ -142,7 +142,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const updates = req.body;
-      const sheet = await storage.updateSheet(id, updates);
+      const sheet = await jsonStorage.updateSheet(id, updates);
       res.json(sheet);
     } catch (error) {
       res.status(400).json({ error: "Failed to update sheet" });
@@ -152,7 +152,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/sheets/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      await storage.deleteSheet(id);
+      await jsonStorage.deleteSheet(id);
       res.json({ success: true });
     } catch (error) {
       res.status(400).json({ error: "Failed to delete sheet" });
@@ -163,17 +163,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/sheets/:id/cells", async (req, res) => {
     try {
       const sheetId = parseInt(req.params.id);
-      console.log(`Fetching cells for sheet ${sheetId}`);
-      console.log(`Storage exists:`, !!storage);
-      console.log(`Storage getCellsBySheet:`, typeof storage.getCellsBySheet);
-      
-      const cells = await storage.getCellsBySheet(sheetId);
-      console.log(`Found ${cells.length} cells:`, cells);
-      
+      const cells = await jsonStorage.getCellsBySheet(sheetId);
       res.json(cells);
     } catch (error) {
-      console.error('Error fetching cells:', error);
-      console.error('Error stack:', error.stack);
       res.status(500).json({ error: "Failed to fetch cells", details: error.message });
     }
   });
@@ -184,13 +176,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const row = parseInt(req.params.row);
       const column = parseInt(req.params.column);
       const updates = req.body;
+      const userId = (req as any).user.id;
       
-      const cell = await storage.updateCellByPosition(sheetId, row, column, updates);
+      const cell = await jsonStorage.updateCellByPosition(sheetId, row, column, updates);
       
       // Log activity
-      await storage.createActivity({
+      await jsonStorage.createActivity({
         spreadsheetId: 1, // TODO: Get from sheet
-        userId: 1, // TODO: Get from session
+        userId: userId,
         action: "cell_updated",
         details: { sheetId, row, column, value: updates.value },
       });
