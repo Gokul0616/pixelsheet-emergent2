@@ -338,10 +338,15 @@ class UltimatePixelSheetsAPITester:
         
         # Test basic connectivity
         try:
-            response = requests.get(f"{self.base_url}/api/spreadsheets", timeout=5)
+            response = requests.get(f"{self.base_url}/api/auth/health", timeout=5)
             print(f"✅ Server is responding (Status: {response.status_code})")
         except Exception as e:
             print(f"❌ Server connection failed: {str(e)}")
+            return 1
+        
+        # Test authentication first
+        if not self.test_authentication():
+            print("❌ Authentication failed, stopping tests")
             return 1
         
         # Run all test suites
