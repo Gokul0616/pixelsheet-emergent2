@@ -1,0 +1,11 @@
+[
+  {
+    "id": "1b4e545d-d371-4319-9724-55fb13a456ad",
+    "createdAt": "2025-07-13T12:14:20.389Z",
+    "userId": 1,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1MjQwODg2MCwiZXhwIjoxNzUyNDk1MjYwfQ.VDiafPZ6yIgLpSyYM2mpj_jP4GjE2kom_DH7S9Ki2qQ",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1MjQwODg2MCwiZXhwIjoxNzUzMDEzNjYwfQ.Nyz17x_yRza3ZR6ObL6M6h-pc6j6IP0MMjGUVeB6Gas",
+    "expiresAt": "2025-07-14T12:14:20.389Z",
+    "isRememberMe": false
+  }
+]
