@@ -68,10 +68,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/spreadsheets/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const spreadsheet = await storage.getSpreadsheet(id);
+      const userId = (req as any).user.id;
+      const spreadsheet = await jsonStorage.getSpreadsheet(id);
+      
       if (!spreadsheet) {
         return res.status(404).json({ error: "Spreadsheet not found" });
       }
+      
+      // Check if user has access to this spreadsheet
+      if (spreadsheet.ownerId !== userId) {
+        // Check if user is a collaborator (implement this check)
+        return res.status(403).json({ error: "Access denied" });
+      }
+      
       res.json(spreadsheet);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch spreadsheet" });
@@ -80,8 +89,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/spreadsheets", async (req, res) => {
     try {
-      const data = insertSpreadsheetSchema.parse(req.body);
-      const spreadsheet = await storage.createSpreadsheet(data);
+      const userId = (req as any).user.id;
+      const data = insertSpreadsheetSchema.parse({ ...req.body, ownerId: userId });
+      const spreadsheet = await jsonStorage.createSpreadsheet(data);
       res.json(spreadsheet);
     } catch (error) {
       res.status(400).json({ error: "Invalid spreadsheet data" });
@@ -91,9 +101,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put("/api/spreadsheets/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
+      const userId = (req as any).user.id;
+      const spreadsheet = await jsonStorage.getSpreadsheet(id);
+      
+      if (!spreadsheet || spreadsheet.ownerId !== userId) {
+        return res.status(403).json({ error: "Access denied" });
+      }
+      
       const updates = req.body;
-      const spreadsheet = await storage.updateSpreadsheet(id, updates);
-      res.json(spreadsheet);
+      const updatedSpreadsheet = await jsonStorage.updateSpreadsheet(id, updates);
+      res.json(updatedSpreadsheet);
     } catch (error) {
       res.status(400).json({ error: "Failed to update spreadsheet" });
     }
