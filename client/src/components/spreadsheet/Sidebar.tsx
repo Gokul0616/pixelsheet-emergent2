@@ -22,6 +22,77 @@ interface SidebarProps {
 
 export function Sidebar({ activities, collaborators, onClose }: SidebarProps) {
   const [activeTab, setActiveTab] = useState<"activity" | "comments" | "collaborators">("activity");
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      user: "User 1",
+      message: "Let's review the Q1 numbers together",
+      timestamp: "2:30 PM",
+      type: 'message'
+    },
+    {
+      id: 2,
+      user: "User 2", 
+      message: "Looks good! Should we add a chart for better visualization?",
+      timestamp: "2:32 PM",
+      type: 'message'
+    },
+    {
+      id: 3,
+      user: "System",
+      message: "User 3 joined the collaboration",
+      timestamp: "2:35 PM", 
+      type: 'system'
+    }
+  ]);
+  const [newMessage, setNewMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = () => {
+    if (newMessage.trim()) {
+      const message: Message = {
+        id: messages.length + 1,
+        user: "You",
+        message: newMessage.trim(),
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        type: 'message'
+      };
+      
+      setMessages(prev => [...prev, message]);
+      setNewMessage("");
+      
+      toast({
+        title: "Message Sent",
+        description: "Your message has been sent to the team",
+      });
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  const handleTyping = (value: string) => {
+    setNewMessage(value);
+    if (!isTyping && value.length > 0) {
+      setIsTyping(true);
+      // Simulate typing indicator
+      setTimeout(() => setIsTyping(false), 2000);
+    }
+  };
 
   const mockComments = [
     {
