@@ -68,6 +68,12 @@ export default function SpreadsheetPage() {
     queryKey: ["/api/spreadsheets", spreadsheetId, "collaborators"],
   });
 
+  // Get cells data for the active sheet
+  const { data: cells } = useQuery({
+    queryKey: ["/api/sheets", activeSheet, "cells"],
+    enabled: !!activeSheet,
+  });
+
   // WebSocket integration for real-time collaboration
   const {
     isConnected,
