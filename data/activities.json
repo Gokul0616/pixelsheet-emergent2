@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "spreadsheetId": 1,
+    "userId": 2,
+    "action": "cell_updated",
+    "details": {
+      "sheetId": 1,
+      "row": 1,
+      "column": 1,
+      "value": "Test Value"
+    },
+    "createdAt": "2025-07-13T12:36:58.337Z"
+  },
+  {
+    "id": 2,
+    "spreadsheetId": 1,
+    "userId": 2,
+    "action": "cell_updated",
+    "details": {
+      "sheetId": 1,
+      "row": 2,
+      "column": 2,
+      "value": "=B1+B2"
+    },
+    "createdAt": "2025-07-13T12:36:58.344Z"
+  }
+]

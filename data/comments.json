@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "cellId": 1,
+    "userId": 2,
+    "content": "This is a test comment",
+    "createdAt": "2025-07-13T12:36:58.368Z",
+    "updatedAt": "2025-07-13T12:36:58.368Z"
+  }
+]

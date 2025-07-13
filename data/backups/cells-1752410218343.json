@@ -48,12 +48,11 @@
     "sheetId": 1,
     "row": 2,
     "column": 2,
-    "value": "=B1+B2",
-    "dataType": "formula",
+    "value": "35000",
+    "dataType": "number",
     "formatting": {},
     "createdAt": "2025-07-13T12:09:20.813Z",
-    "updatedAt": "2025-07-13T12:36:58.342Z",
-    "formula": "=B1+B2"
+    "updatedAt": "2025-07-13T12:09:20.813Z"
   },
   {
     "id": 6,

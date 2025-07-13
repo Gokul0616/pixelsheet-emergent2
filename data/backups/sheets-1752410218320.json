@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "spreadsheetId": 1,
+    "name": "Sheet1",
+    "index": 0,
+    "createdAt": "2025-07-13T12:09:20.812Z",
+    "updatedAt": "2025-07-13T12:09:20.812Z"
+  },
+  {
+    "id": 2,
+    "spreadsheetId": 1,
+    "name": "Test Sheet 123658",
+    "index": 1,
+    "createdAt": "2025-07-13T12:36:58.312Z",
+    "updatedAt": "2025-07-13T12:36:58.312Z"
+  }
+]

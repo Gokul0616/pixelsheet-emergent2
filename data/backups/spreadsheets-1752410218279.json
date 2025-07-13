@@ -11,13 +11,5 @@
       "allowComment": true,
       "allowView": true
     }
-  },
-  {
-    "id": 2,
-    "name": "Updated Test Spreadsheet",
-    "ownerId": 2,
-    "isPublic": false,
-    "createdAt": "2025-07-13T12:36:58.279Z",
-    "updatedAt": "2025-07-13T12:36:58.284Z"
   }
 ]
