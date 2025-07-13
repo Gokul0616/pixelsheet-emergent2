@@ -173,10 +173,28 @@ export default function LandingPage() {
               </h1>
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" onClick={handleGetStarted}>Sign In</Button>
-              <Button onClick={handleCreateSpreadsheet} className="bg-gradient-to-r from-blue-600 to-purple-600">
-                Get Started
-              </Button>
+              {isAuthenticated ? (
+                <>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-600">Welcome, {user?.username}</span>
+                    <Badge variant="outline">{user?.role}</Badge>
+                  </div>
+                  <Button onClick={handleCreateSpreadsheet} className="bg-gradient-to-r from-blue-600 to-purple-600">
+                    Dashboard
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" onClick={handleLogin}>
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Button>
+                  <Button onClick={handleSignUp} className="bg-gradient-to-r from-blue-600 to-purple-600">
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Get Started
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
