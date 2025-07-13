@@ -213,6 +213,22 @@ export function Sidebar({ activities, collaborators, onClose }: SidebarProps) {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <p className="text-sm text-gray-700">{comment.content}</p>
+                  
+                  {/* Replies */}
+                  {comment.replies.length > 0 && (
+                    <div className="mt-3 pl-4 border-l-2 border-gray-200 space-y-2">
+                      {comment.replies.map((reply) => (
+                        <div key={reply.id} className="text-sm">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-medium text-gray-900">{reply.user}</span>
+                            <span className="text-xs text-gray-500">{reply.createdAt}</span>
+                          </div>
+                          <p className="text-gray-700 mt-1">{reply.content}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
                   <div className="flex items-center space-x-2 mt-2">
                     <Button variant="ghost" size="sm" className="text-xs h-6">
                       Reply
