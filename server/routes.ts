@@ -278,7 +278,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/sheets/:id/columns", async (req, res) => {
     try {
       const sheetId = parseInt(req.params.id);
-      const columns = await storage.getColumnMetadataBySheet(sheetId);
+      const columns = await jsonStorage.getColumnMetadataBySheet(sheetId);
       res.json(columns);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch column metadata" });
@@ -291,7 +291,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const columnIndex = parseInt(req.params.columnIndex);
       const updates = req.body;
       
-      const column = await storage.updateColumnMetadataByPosition(sheetId, columnIndex, updates);
+      const column = await jsonStorage.updateColumnMetadataByPosition(sheetId, columnIndex, updates);
       res.json(column);
     } catch (error) {
       res.status(400).json({ error: "Failed to update column metadata" });
@@ -302,7 +302,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/sheets/:id/rows", async (req, res) => {
     try {
       const sheetId = parseInt(req.params.id);
-      const rows = await storage.getRowMetadataBySheet(sheetId);
+      const rows = await jsonStorage.getRowMetadataBySheet(sheetId);
       res.json(rows);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch row metadata" });
@@ -315,7 +315,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const rowIndex = parseInt(req.params.rowIndex);
       const updates = req.body;
       
-      const row = await storage.updateRowMetadataByPosition(sheetId, rowIndex, updates);
+      const row = await jsonStorage.updateRowMetadataByPosition(sheetId, rowIndex, updates);
       res.json(row);
     } catch (error) {
       res.status(400).json({ error: "Failed to update row metadata" });
@@ -326,7 +326,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/sheets/:id/pivots", async (req, res) => {
     try {
       const sheetId = parseInt(req.params.id);
-      const pivots = await storage.getPivotTablesBySheet(sheetId);
+      const pivots = await jsonStorage.getPivotTablesBySheet(sheetId);
       res.json(pivots);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch pivot tables" });
@@ -337,7 +337,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const sheetId = parseInt(req.params.id);
       const data = insertPivotTableSchema.parse({ ...req.body, sheetId });
-      const pivot = await storage.createPivotTable(data);
+      const pivot = await jsonStorage.createPivotTable(data);
       res.json(pivot);
     } catch (error) {
       res.status(400).json({ error: "Invalid pivot table data" });
@@ -348,7 +348,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const updates = req.body;
-      const pivot = await storage.updatePivotTable(id, updates);
+      const pivot = await jsonStorage.updatePivotTable(id, updates);
       res.json(pivot);
     } catch (error) {
       res.status(400).json({ error: "Failed to update pivot table" });
@@ -358,7 +358,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/pivots/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      await storage.deletePivotTable(id);
+      await jsonStorage.deletePivotTable(id);
       res.json({ success: true });
     } catch (error) {
       res.status(400).json({ error: "Failed to delete pivot table" });
@@ -369,7 +369,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/spreadsheets/:id/named-ranges", async (req, res) => {
     try {
       const spreadsheetId = parseInt(req.params.id);
-      const namedRanges = await storage.getNamedRangesBySpreadsheet(spreadsheetId);
+      const namedRanges = await jsonStorage.getNamedRangesBySpreadsheet(spreadsheetId);
       res.json(namedRanges);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch named ranges" });
@@ -380,7 +380,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const spreadsheetId = parseInt(req.params.id);
       const data = insertNamedRangeSchema.parse({ ...req.body, spreadsheetId });
-      const namedRange = await storage.createNamedRange(data);
+      const namedRange = await jsonStorage.createNamedRange(data);
       res.json(namedRange);
     } catch (error) {
       res.status(400).json({ error: "Invalid named range data" });
@@ -391,7 +391,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const updates = req.body;
-      const namedRange = await storage.updateNamedRange(id, updates);
+      const namedRange = await jsonStorage.updateNamedRange(id, updates);
       res.json(namedRange);
     } catch (error) {
       res.status(400).json({ error: "Failed to update named range" });
@@ -401,7 +401,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/named-ranges/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      await storage.deleteNamedRange(id);
+      await jsonStorage.deleteNamedRange(id);
       res.json({ success: true });
     } catch (error) {
       res.status(400).json({ error: "Failed to delete named range" });
