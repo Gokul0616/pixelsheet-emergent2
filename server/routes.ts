@@ -243,14 +243,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/spreadsheets/:id/export/csv", async (req, res) => {
     try {
       const spreadsheetId = parseInt(req.params.id);
-      const sheets = await storage.getSheetsBySpreadsheet(spreadsheetId);
+      const sheets = await jsonStorage.getSheetsBySpreadsheet(spreadsheetId);
       
       if (sheets.length === 0) {
         return res.status(404).json({ error: "No sheets found" });
       }
       
       const firstSheet = sheets[0];
-      const cells = await storage.getCellsBySheet(firstSheet.id);
+      const cells = await jsonStorage.getCellsBySheet(firstSheet.id);
       
       // Convert cells to CSV format
       const maxRow = Math.max(...cells.map(c => c.row), 0);
