@@ -43,6 +43,12 @@ interface RowHeight {
   [key: number]: number;
 }
 
+interface ClipboardData {
+  type: 'cut' | 'copy';
+  data: { row: number; column: number; value: string; formula?: string }[];
+  range: SelectionRange;
+}
+
 export function ResizableGrid({
   sheetId,
   selectedCell,
