@@ -51,8 +51,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register authentication routes (public)
   registerAuthRoutes(app, jsonStorage);
 
-  // Middleware to authenticate all other API routes
-  app.use("/api", authenticateToken(jsonStorage));
+  // Middleware to authenticate API routes only (not static assets)
+  app.use("/api", (req, res, next) => {
+    // Skip authentication for auth routes
+    if (req.path.startsWith('/api/auth/')) {
+      return next();
+    }
+    // Apply authentication for other API routes
+    return authenticateToken(jsonStorage)(req, res, next);
+  });
 
   // Spreadsheet routes (protected)
   app.get("/api/spreadsheets", async (req, res) => {
