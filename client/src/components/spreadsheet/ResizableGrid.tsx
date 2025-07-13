@@ -712,7 +712,38 @@ export function ResizableGrid({
     }
   };
 
-  // Calculate cumulative positions for efficient rendering
+  // Global mouse events for selection
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      setIsSelecting(false);
+      setSelectionStartCell(null);
+    };
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (isSelecting && selectionStartCell && gridRef.current) {
+        // Prevent default selection behavior
+        e.preventDefault();
+      }
+    };
+
+    if (isSelecting) {
+      document.addEventListener('mouseup', handleGlobalMouseUp);
+      document.addEventListener('mousemove', handleGlobalMouseMove);
+    }
+
+    return () => {
+      document.removeEventListener('mouseup', handleGlobalMouseUp);
+      document.removeEventListener('mousemove', handleGlobalMouseMove);
+    };
+  }, [isSelecting, selectionStartCell]);
+
+  // Focus the grid for keyboard events
+  useEffect(() => {
+    if (gridRef.current) {
+      gridRef.current.focus();
+    }
+  }, []);
+
   const getColumnPosition = (col: number) => {
     let position = headerWidth;
     for (let i = 1; i < col; i++) {
