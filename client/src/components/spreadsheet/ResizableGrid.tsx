@@ -451,6 +451,47 @@ export function ResizableGrid({
   const handleCellClick = (row: number, column: number) => {
     setIsEditing(false);
     onCellSelect?.(row, column);
+    setSelectionRange(null); // Clear range selection on single cell click
+  };
+
+  const handleCellMouseDown = (row: number, column: number, e: React.MouseEvent) => {
+    if (e.shiftKey && selectedCell) {
+      // Range selection with Shift+Click
+      e.preventDefault();
+      setSelectionRange({
+        startRow: selectedCell.row,
+        startCol: selectedCell.column,
+        endRow: row,
+        endCol: column
+      });
+    } else if (e.ctrlKey || e.metaKey) {
+      // Multi-selection with Ctrl+Click (for future implementation)
+      e.preventDefault();
+      // TODO: Implement multi-selection
+    } else {
+      // Start potential drag selection
+      setIsSelecting(true);
+      setSelectionStartCell({ row, column });
+      setSelectionRange(null);
+      onCellSelect?.(row, column);
+    }
+  };
+
+  const handleCellMouseEnter = (row: number, column: number) => {
+    if (isSelecting && selectionStartCell) {
+      // Update selection range during drag
+      setSelectionRange({
+        startRow: selectionStartCell.row,
+        startCol: selectionStartCell.column,
+        endRow: row,
+        endCol: column
+      });
+    }
+  };
+
+  const handleCellMouseUp = () => {
+    setIsSelecting(false);
+    setSelectionStartCell(null);
   };
 
   const handleCellDoubleClick = (row: number, column: number) => {
