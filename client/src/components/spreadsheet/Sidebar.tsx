@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { X, Clock, MessageSquare, Users, Activity, History } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { X, Clock, MessageSquare, Users, Activity, History, Send, Smile } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+interface Message {
+  id: number;
+  user: string;
+  message: string;
+  timestamp: string;
+  type: 'message' | 'system';
+}
 
 interface SidebarProps {
   activities: any[];
