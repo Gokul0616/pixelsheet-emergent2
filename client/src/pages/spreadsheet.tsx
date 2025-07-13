@@ -81,11 +81,24 @@ export default function SpreadsheetPage() {
     sendTypingStop,
   } = useWebSocket(spreadsheetId, 1, "Demo User");
 
-  // Handle cell selection
+  // Handle cell selection with range support
   const handleCellSelect = (row: number, column: number) => {
     setSelectedCell({ row, column, sheetId: activeSheet || 1 });
     setSelectedCells([{ row, column, sheetId: activeSheet || 1 }]);
     setFormulaValue(getCellDisplayValue(row, column));
+    setSelectionRange(null); // Clear range when selecting single cell
+  };
+
+  // Handle range selection
+  const handleRangeSelect = (range: { startRow: number; startCol: number; endRow: number; endCol: number }) => {
+    setSelectionRange(range);
+    const cells = [];
+    for (let row = Math.min(range.startRow, range.endRow); row <= Math.max(range.startRow, range.endRow); row++) {
+      for (let col = Math.min(range.startCol, range.endCol); col <= Math.max(range.startCol, range.endCol); col++) {
+        cells.push({ row, column: col, sheetId: activeSheet || 1 });
+      }
+    }
+    setSelectedCells(cells);
   };
 
   const getCellDisplayValue = (row: number, column: number) => {
