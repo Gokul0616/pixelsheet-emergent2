@@ -20,6 +20,21 @@ interface ResizableGridProps {
   onCellSelect?: (row: number, column: number) => void;
 }
 
+interface SelectionRange {
+  startRow: number;
+  startCol: number;
+  endRow: number;
+  endCol: number;
+}
+
+interface DragData {
+  startRow: number;
+  startCol: number;
+  endRow: number;
+  endCol: number;
+  data: any[];
+}
+
 interface ColumnWidth {
   [key: number]: number;
 }
