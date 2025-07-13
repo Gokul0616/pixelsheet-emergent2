@@ -101,7 +101,15 @@ export function Sidebar({ activities, collaborators, onClose }: SidebarProps) {
       user: "User 1",
       content: "This data needs to be verified before we proceed with the analysis.",
       createdAt: "2 hours ago",
-      isResolved: false
+      isResolved: false,
+      replies: [
+        {
+          id: 1,
+          user: "User 2",
+          content: "I'll verify this data by tomorrow",
+          createdAt: "1 hour ago"
+        }
+      ]
     },
     {
       id: 2,
@@ -109,22 +117,8 @@ export function Sidebar({ activities, collaborators, onClose }: SidebarProps) {
       user: "User 2",
       content: "Let's review the Q1 numbers together",
       createdAt: "1 day ago",
-      isResolved: true
-    }
-  ];
-
-  const mockTeamChat = [
-    {
-      id: 1,
-      user: "User 1",
-      message: "Let's review the Q1 numbers together",
-      timestamp: "2:30 PM"
-    },
-    {
-      id: 2,
-      user: "User 2",
-      message: "Looks good! Should we add a chart for better visualization?",
-      timestamp: "2:32 PM"
+      isResolved: true,
+      replies: []
     }
   ];
 
