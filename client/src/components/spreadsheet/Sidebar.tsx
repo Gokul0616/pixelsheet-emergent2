@@ -269,31 +269,81 @@ export function Sidebar({ activities, collaborators, onClose }: SidebarProps) {
 
             {/* Team Chat */}
             <div className="bg-gray-50 rounded-lg p-3 max-h-64 overflow-y-auto">
-              {mockTeamChat.map((message) => (
+              {messages.map((message) => (
                 <div key={message.id} className="mb-3 last:mb-0">
                   <div className="flex items-start space-x-2">
-                    <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-medium">
-                      {message.user.charAt(message.user.length - 1)}
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
+                      message.type === 'system' ? 'bg-gray-500 text-white' : 
+                      message.user === 'You' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'
+                    }`}>
+                      {message.type === 'system' ? '!' : message.user.charAt(0)}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-2">
-                        <span className="text-xs font-medium text-gray-900">{message.user}</span>
+                        <span className={`text-xs font-medium ${
+                          message.type === 'system' ? 'text-gray-600' : 'text-gray-900'
+                        }`}>
+                          {message.user}
+                        </span>
                         <span className="text-xs text-gray-500">{message.timestamp}</span>
                       </div>
-                      <p className="text-sm text-gray-700 mt-1">{message.message}</p>
+                      <p className={`text-sm mt-1 ${
+                        message.type === 'system' ? 'text-gray-600 italic' : 'text-gray-700'
+                      }`}>
+                        {message.message}
+                      </p>
                     </div>
                   </div>
                 </div>
               ))}
+              
+              {isTyping && (
+                <div className="mb-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center text-xs font-medium text-white">
+                      ...
+                    </div>
+                    <span className="text-xs text-gray-500 italic">Someone is typing...</span>
+                  </div>
+                </div>
+              )}
+              
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Chat Input */}
             <div className="mt-4">
-              <input
-                type="text"
-                placeholder="Type a message..."
-                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <div className="flex items-center space-x-2">
+                <Input
+                  type="text"
+                  placeholder="Type a message..."
+                  value={newMessage}
+                  onChange={(e) => handleTyping(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="flex-1 text-sm"
+                />
+                <Button 
+                  size="sm" 
+                  onClick={handleSendMessage}
+                  disabled={!newMessage.trim()}
+                  className="px-3"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm" className="p-1">
+                    <Smile className="h-4 w-4 text-gray-500" />
+                  </Button>
+                  <span className="text-xs text-gray-500">
+                    {messages.filter(m => m.type !== 'system').length} messages
+                  </span>
+                </div>
+                <span className="text-xs text-gray-400">
+                  Press Enter to send
+                </span>
+              </div>
             </div>
           </div>
         )}
