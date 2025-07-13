@@ -31,9 +31,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       directives: {
         defaultSrc: ["'self'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://replit.com"],
         imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'", "ws:", "wss:"],
+        connectSrc: ["'self'", "ws:", "wss:", "ws://localhost:*", "wss://localhost:*"],
       },
     },
   }));
@@ -41,7 +41,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
       ? ['https://yourapp.com'] // Add your production domains
-      : ['http://localhost:3000', 'http://localhost:5000'],
+      : ['http://localhost:3000', 'http://localhost:5000', 'http://localhost:24678'],
     credentials: true,
   }));
 
