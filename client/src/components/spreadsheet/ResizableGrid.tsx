@@ -70,6 +70,19 @@ export function ResizableGrid({
   const [manualSize, setManualSize] = useState<string>('');
   const [selectedColumns, setSelectedColumns] = useState<number[]>([]);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  
+  // Enhanced selection states
+  const [selectionRange, setSelectionRange] = useState<SelectionRange | null>(null);
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectionStartCell, setSelectionStartCell] = useState<{ row: number; column: number } | null>(null);
+  
+  // Drag and drop states
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragData, setDragData] = useState<DragData | null>(null);
+  
+  // Clipboard functionality
+  const [clipboardData, setClipboardData] = useState<ClipboardData | null>(null);
+  
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
