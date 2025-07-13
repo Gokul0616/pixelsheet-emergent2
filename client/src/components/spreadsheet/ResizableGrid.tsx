@@ -763,7 +763,7 @@ export function ResizableGrid({
   return (
     <div 
       ref={gridRef}
-      className="flex-1 overflow-auto bg-white relative" 
+      className="flex-1 overflow-auto bg-white relative outline-none" 
       style={{ 
         zoom: `${zoom}%`,
         scrollBehavior: 'smooth',
@@ -771,9 +771,11 @@ export function ResizableGrid({
         height: '100%',
         maxHeight: 'calc(100vh - 200px)'
       }}
+      tabIndex={0}
       onMouseMove={handleResizeMove}
       onMouseUp={handleResizeEnd}
       onMouseLeave={handleResizeEnd}
+      onContextMenu={(e) => e.preventDefault()} // Prevent default context menu
     >
       <div 
         className="relative" 
@@ -784,6 +786,18 @@ export function ResizableGrid({
           minHeight: getRowPosition(101)
         }}
       >
+        {/* Selection Range Overlay */}
+        {selectionRange && (
+          <div
+            className="absolute border-2 border-blue-500 bg-blue-100 bg-opacity-20 pointer-events-none z-5"
+            style={{
+              left: getColumnPosition(Math.min(selectionRange.startCol, selectionRange.endCol)),
+              top: getRowPosition(Math.min(selectionRange.startRow, selectionRange.endRow)),
+              width: Math.abs(selectionRange.endCol - selectionRange.startCol + 1) * defaultColumnWidth,
+              height: Math.abs(selectionRange.endRow - selectionRange.startRow + 1) * defaultRowHeight
+            }}
+          />
+        )}
         {/* Top-left corner */}
         <div 
           className="absolute bg-gray-100 border-r border-b border-gray-300 flex items-center justify-center"
