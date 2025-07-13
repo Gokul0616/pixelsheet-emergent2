@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "name": "Demo Spreadsheet",
+    "ownerId": 2,
+    "createdAt": "2025-07-13T12:09:20.812Z",
+    "updatedAt": "2025-07-13T12:09:20.812Z",
+    "isPublic": false,
+    "shareSettings": {
+      "allowEdit": true,
+      "allowComment": true,
+      "allowView": true
+    }
+  }
+]

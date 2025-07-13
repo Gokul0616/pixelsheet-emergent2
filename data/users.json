@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@pixelsheets.com",
+    "password": "$2a$12$ia.0ANbQa0lCfMug/0B.jOupFWc/7MWIMLxe1wWw3YtDOLdxbVRJG",
+    "role": "admin",
+    "mfaEnabled": false,
+    "emailVerified": true,
+    "loginAttempts": 0,
+    "createdAt": "2025-07-13T12:09:20.414Z",
+    "updatedAt": "2025-07-13T12:09:20.414Z"
+  },
+  {
+    "id": 2,
+    "username": "demo_user",
+    "email": "demo@pixelsheets.com",
+    "password": "$2a$12$HRy8Wr9GhP8pEMLirReEOeK9/kO7aiagcCHOSWdgxmuzi/o1dXUNG",
+    "role": "editor",
+    "mfaEnabled": false,
+    "emailVerified": true,
+    "loginAttempts": 0,
+    "createdAt": "2025-07-13T12:09:20.812Z",
+    "updatedAt": "2025-07-13T12:09:20.812Z"
+  }
+]
