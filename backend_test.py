@@ -61,6 +61,32 @@ class UltimatePixelSheetsAPITester:
             print(f"❌ Failed - Error: {str(e)}")
             return False, {}
 
+    def test_authentication(self):
+        """Test authentication with demo credentials"""
+        print("\n🔐 Testing Authentication...")
+        
+        # Test login with demo user
+        login_data = {
+            "email": "demo@pixelsheets.com",
+            "password": "demo123"
+        }
+        
+        success, response = self.run_test(
+            "Login with Demo User",
+            "POST",
+            "api/auth/login",
+            200,
+            data=login_data
+        )
+        
+        if success and 'tokens' in response:
+            self.access_token = response['tokens']['accessToken']
+            print(f"   ✅ Authentication successful, token obtained")
+            return True
+        else:
+            print(f"   ❌ Authentication failed")
+            return False
+
     def test_spreadsheets_api(self):
         """Test spreadsheet CRUD operations"""
         print("\n📊 Testing Spreadsheet API...")
