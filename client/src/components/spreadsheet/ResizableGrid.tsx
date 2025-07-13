@@ -138,6 +138,279 @@ export function ResizableGrid({
   const headerHeight = 24;
   const headerWidth = 40;
 
+  // Enhanced selection functions
+  const isCellInSelection = useCallback((row: number, col: number) => {
+    if (!selectionRange) return false;
+    return row >= Math.min(selectionRange.startRow, selectionRange.endRow) &&
+           row <= Math.max(selectionRange.startRow, selectionRange.endRow) &&
+           col >= Math.min(selectionRange.startCol, selectionRange.endCol) &&
+           col <= Math.max(selectionRange.startCol, selectionRange.endCol);
+  }, [selectionRange]);
+
+  const isCellSelected = useCallback((row: number, col: number) => {
+    return selectedCell?.row === row && selectedCell?.column === col;
+  }, [selectedCell]);
+
+  // Keyboard shortcuts handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isEditing) return; // Don't interfere with cell editing
+
+      const ctrlKey = e.ctrlKey || e.metaKey;
+      const shiftKey = e.shiftKey;
+
+      switch (e.key) {
+        case 'c':
+        case 'C':
+          if (ctrlKey) {
+            e.preventDefault();
+            handleCopy();
+          }
+          break;
+        case 'x':
+        case 'X':
+          if (ctrlKey) {
+            e.preventDefault();
+            handleCut();
+          }
+          break;
+        case 'v':
+        case 'V':
+          if (ctrlKey) {
+            e.preventDefault();
+            handlePaste();
+          }
+          break;
+        case 'a':
+        case 'A':
+          if (ctrlKey) {
+            e.preventDefault();
+            handleSelectAll();
+          }
+          break;
+        case 'ArrowUp':
+        case 'ArrowDown':
+        case 'ArrowLeft':
+        case 'ArrowRight':
+          e.preventDefault();
+          handleArrowKeyNavigation(e.key, shiftKey);
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (selectedCell) {
+            setIsEditing(true);
+            setFormulaValue(getCellDisplayValue(selectedCell.row, selectedCell.column));
+          }
+          break;
+        case 'Delete':
+        case 'Backspace':
+          e.preventDefault();
+          handleDeleteSelectedCells();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          setSelectionRange(null);
+          setSelectedColumns([]);
+          setSelectedRows([]);
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isEditing, selectedCell, selectionRange]);
+
+  // Arrow key navigation
+  const handleArrowKeyNavigation = (key: string, shiftKey: boolean) => {
+    if (!selectedCell) return;
+
+    let newRow = selectedCell.row;
+    let newCol = selectedCell.column;
+
+    switch (key) {
+      case 'ArrowUp':
+        newRow = Math.max(1, newRow - 1);
+        break;
+      case 'ArrowDown':
+        newRow = Math.min(100, newRow + 1);
+        break;
+      case 'ArrowLeft':
+        newCol = Math.max(1, newCol - 1);
+        break;
+      case 'ArrowRight':
+        newCol = Math.min(26, newCol + 1);
+        break;
+    }
+
+    if (shiftKey && !selectionRange) {
+      // Start range selection
+      setSelectionRange({
+        startRow: selectedCell.row,
+        startCol: selectedCell.column,
+        endRow: newRow,
+        endCol: newCol
+      });
+    } else if (shiftKey && selectionRange) {
+      // Extend range selection
+      setSelectionRange({
+        ...selectionRange,
+        endRow: newRow,
+        endCol: newCol
+      });
+    } else {
+      // Normal navigation
+      setSelectionRange(null);
+    }
+
+    onCellSelect?.(newRow, newCol);
+  };
+
+  // Clipboard operations
+  const handleCopy = () => {
+    if (selectionRange) {
+      const data = getCellDataInRange(selectionRange);
+      setClipboardData({ type: 'copy', data, range: selectionRange });
+      toast({
+        title: "Copied",
+        description: `${data.length} cells copied to clipboard`,
+      });
+    } else if (selectedCell) {
+      const cellData = getCellData(selectedCell.row, selectedCell.column);
+      setClipboardData({
+        type: 'copy',
+        data: [cellData],
+        range: {
+          startRow: selectedCell.row,
+          startCol: selectedCell.column,
+          endRow: selectedCell.row,
+          endCol: selectedCell.column
+        }
+      });
+      toast({
+        title: "Copied",
+        description: "Cell copied to clipboard",
+      });
+    }
+  };
+
+  const handleCut = () => {
+    if (selectionRange) {
+      const data = getCellDataInRange(selectionRange);
+      setClipboardData({ type: 'cut', data, range: selectionRange });
+      // Clear the cells after cutting
+      clearCellsInRange(selectionRange);
+      toast({
+        title: "Cut",
+        description: `${data.length} cells cut to clipboard`,
+      });
+    } else if (selectedCell) {
+      const cellData = getCellData(selectedCell.row, selectedCell.column);
+      setClipboardData({
+        type: 'cut',
+        data: [cellData],
+        range: {
+          startRow: selectedCell.row,
+          startCol: selectedCell.column,
+          endRow: selectedCell.row,
+          endCol: selectedCell.column
+        }
+      });
+      onCellUpdate(selectedCell.row, selectedCell.column, "");
+      toast({
+        title: "Cut",
+        description: "Cell cut to clipboard",
+      });
+    }
+  };
+
+  const handlePaste = () => {
+    if (!clipboardData || !selectedCell) return;
+
+    const pasteStartRow = selectedCell.row;
+    const pasteStartCol = selectedCell.column;
+
+    clipboardData.data.forEach((cellData, index) => {
+      const originalRowOffset = cellData.row - clipboardData.range.startRow;
+      const originalColOffset = cellData.column - clipboardData.range.startCol;
+      
+      const newRow = pasteStartRow + originalRowOffset;
+      const newCol = pasteStartCol + originalColOffset;
+
+      if (newRow <= 100 && newCol <= 26) {
+        onCellUpdate(newRow, newCol, cellData.value, cellData.formula);
+      }
+    });
+
+    if (clipboardData.type === 'cut') {
+      setClipboardData(null); // Clear clipboard after cutting
+    }
+
+    toast({
+      title: "Pasted",
+      description: `${clipboardData.data.length} cells pasted`,
+    });
+  };
+
+  const handleSelectAll = () => {
+    setSelectionRange({
+      startRow: 1,
+      startCol: 1,
+      endRow: 100,
+      endCol: 26
+    });
+    toast({
+      title: "Select All",
+      description: "All cells selected",
+    });
+  };
+
+  const handleDeleteSelectedCells = () => {
+    if (selectionRange) {
+      clearCellsInRange(selectionRange);
+      const cellCount = (Math.abs(selectionRange.endRow - selectionRange.startRow) + 1) * 
+                       (Math.abs(selectionRange.endCol - selectionRange.startCol) + 1);
+      toast({
+        title: "Deleted",
+        description: `${cellCount} cells cleared`,
+      });
+    } else if (selectedCell) {
+      onCellUpdate(selectedCell.row, selectedCell.column, "");
+      toast({
+        title: "Deleted",
+        description: "Cell cleared",
+      });
+    }
+  };
+
+  // Helper functions
+  const getCellData = (row: number, column: number) => {
+    const cell = cells?.find(c => c.row === row && c.column === column);
+    return {
+      row,
+      column,
+      value: cell?.value || "",
+      formula: cell?.formula || ""
+    };
+  };
+
+  const getCellDataInRange = (range: SelectionRange) => {
+    const data = [];
+    for (let row = Math.min(range.startRow, range.endRow); row <= Math.max(range.startRow, range.endRow); row++) {
+      for (let col = Math.min(range.startCol, range.endCol); col <= Math.max(range.startCol, range.endCol); col++) {
+        data.push(getCellData(row, col));
+      }
+    }
+    return data;
+  };
+
+  const clearCellsInRange = (range: SelectionRange) => {
+    for (let row = Math.min(range.startRow, range.endRow); row <= Math.max(range.startRow, range.endRow); row++) {
+      for (let col = Math.min(range.startCol, range.endCol); col <= Math.max(range.startCol, range.endCol); col++) {
+        onCellUpdate(row, col, "");
+      }
+    }
+  };
+
   // Get width/height from metadata or local state
   const getColumnWidth = useCallback((col: number) => {
     const metadata = columnMetadata?.find((m: any) => m.columnIndex === col);
