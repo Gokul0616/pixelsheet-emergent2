@@ -198,7 +198,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/cells/:id/comments", async (req, res) => {
     try {
       const cellId = parseInt(req.params.id);
-      const comments = await storage.getCommentsByCell(cellId);
+      const comments = await jsonStorage.getCommentsByCell(cellId);
       res.json(comments);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch comments" });
@@ -208,8 +208,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/cells/:id/comments", async (req, res) => {
     try {
       const cellId = parseInt(req.params.id);
-      const data = insertCommentSchema.parse({ ...req.body, cellId });
-      const comment = await storage.createComment(data);
+      const userId = (req as any).user.id;
+      const data = insertCommentSchema.parse({ ...req.body, cellId, userId });
+      const comment = await jsonStorage.createComment(data);
       res.json(comment);
     } catch (error) {
       res.status(400).json({ error: "Invalid comment data" });
@@ -220,7 +221,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/spreadsheets/:id/activities", async (req, res) => {
     try {
       const spreadsheetId = parseInt(req.params.id);
-      const activities = await storage.getActivitiesBySpreadsheet(spreadsheetId);
+      const activities = await jsonStorage.getActivitiesBySpreadsheet(spreadsheetId);
       res.json(activities);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch activities" });
@@ -231,7 +232,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/spreadsheets/:id/collaborators", async (req, res) => {
     try {
       const spreadsheetId = parseInt(req.params.id);
-      const collaborators = await storage.getCollaboratorsBySpreadsheet(spreadsheetId);
+      const collaborators = await jsonStorage.getCollaboratorsBySpreadsheet(spreadsheetId);
       res.json(collaborators);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch collaborators" });
