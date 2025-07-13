@@ -2,6 +2,11 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
+import { JsonFileStorage } from "./json-storage";
+import { authenticateToken, generalLimiter, requireRole } from "./auth";
+import { registerAuthRoutes } from "./auth-routes";
+import helmet from "helmet";
+import cors from "cors";
 import { FormulaEngine } from "./formula-engine";
 import { 
   insertSpreadsheetSchema, 
@@ -16,12 +21,44 @@ import {
   insertNamedRangeSchema,
 } from "@shared/schema";
 
+// Initialize JSON file storage
+const jsonStorage = new JsonFileStorage();
+
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Spreadsheet routes
+  // Security middleware
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", "ws:", "wss:"],
+      },
+    },
+  }));
+
+  app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+      ? ['https://yourapp.com'] // Add your production domains
+      : ['http://localhost:3000', 'http://localhost:5000'],
+    credentials: true,
+  }));
+
+  // Rate limiting
+  app.use("/api", generalLimiter);
+
+  // Register authentication routes (public)
+  registerAuthRoutes(app, jsonStorage);
+
+  // Middleware to authenticate all other API routes
+  app.use("/api", authenticateToken(jsonStorage));
+
+  // Spreadsheet routes (protected)
   app.get("/api/spreadsheets", async (req, res) => {
     try {
-      const userId = 1; // TODO: Get from session
-      const spreadsheets = await storage.getSpreadsheetsByUser(userId);
+      const userId = (req as any).user.id;
+      const spreadsheets = await jsonStorage.getSpreadsheetsByUser(userId);
       res.json(spreadsheets);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch spreadsheets" });
