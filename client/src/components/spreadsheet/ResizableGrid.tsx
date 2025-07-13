@@ -863,8 +863,10 @@ export function ResizableGrid({
                 const left = getColumnPosition(colIndex);
                 const width = getColumnWidth(colIndex);
                 const cellValue = getCellValue(rowIndex, colIndex);
-                const isSelected = selectedCell?.row === rowIndex && selectedCell?.column === colIndex;
+                const isSelected = isCellSelected(rowIndex, colIndex);
+                const isInSelection = isCellInSelection(rowIndex, colIndex);
                 const isEditingCell = isSelected && isEditing;
+                const isCopied = clipboardData?.data.some(d => d.row === rowIndex && d.column === colIndex);
                 
                 return (
                   <div
@@ -872,8 +874,12 @@ export function ResizableGrid({
                     className={`
                       absolute border-r border-b font-mono text-sm p-1 cursor-cell flex items-center
                       ${gridLinesVisible ? 'border-gray-200' : 'border-transparent'}
-                      ${isSelected ? 'bg-blue-50 border-blue-500 border-2 z-20' : 'hover:bg-gray-50'}
+                      ${isSelected ? 'bg-blue-100 border-blue-500 border-2 z-20' : ''}
+                      ${isInSelection && !isSelected ? 'bg-blue-50 border-blue-300 z-10' : ''}
+                      ${!isSelected && !isInSelection ? 'hover:bg-gray-50' : ''}
                       ${isEditingCell ? 'bg-white border-blue-500 border-2 z-30' : ''}
+                      ${isCopied && clipboardData?.type === 'cut' ? 'border-dashed border-orange-300 bg-orange-50' : ''}
+                      ${isCopied && clipboardData?.type === 'copy' ? 'border-dashed border-green-300 bg-green-50' : ''}
                     `}
                     style={{
                       left,
@@ -881,7 +887,10 @@ export function ResizableGrid({
                       width,
                       height
                     }}
-                    onClick={() => handleCellClick(rowIndex, colIndex)}
+                    onMouseDown={(e) => handleCellMouseDown(rowIndex, colIndex, e)}
+                    onMouseEnter={() => handleCellMouseEnter(rowIndex, colIndex)}
+                    onMouseUp={handleCellMouseUp}
+                    onClick={() => !isSelecting && handleCellClick(rowIndex, colIndex)}
                     onDoubleClick={() => handleCellDoubleClick(rowIndex, colIndex)}
                   >
                     {isEditingCell ? (
