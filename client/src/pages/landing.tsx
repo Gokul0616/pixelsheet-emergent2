@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,19 +27,38 @@ import {
   Filter,
   Lock,
   MessageSquare,
-  Palette
+  Palette,
+  LogIn,
+  UserPlus
 } from "lucide-react";
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
+  const { isAuthenticated, user } = useAuth();
   const [email, setEmail] = useState("");
 
   const handleCreateSpreadsheet = () => {
-    setLocation("/spreadsheet/1");
+    if (isAuthenticated) {
+      setLocation("/spreadsheet/1");
+    } else {
+      setLocation("/register");
+    }
   };
 
   const handleGetStarted = () => {
-    setLocation("/spreadsheet/1");
+    if (isAuthenticated) {
+      setLocation("/spreadsheet/1");
+    } else {
+      setLocation("/login");
+    }
+  };
+
+  const handleLogin = () => {
+    setLocation("/login");
+  };
+
+  const handleSignUp = () => {
+    setLocation("/register");
   };
 
   const features = [
