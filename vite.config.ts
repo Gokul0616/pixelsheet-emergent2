@@ -33,5 +33,11 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
+    hmr: {
+      port: 24678
+    }
   },
+  define: {
+    'process.env': {}
+  }
 });
