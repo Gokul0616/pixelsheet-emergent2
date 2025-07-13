@@ -25,6 +25,12 @@ export default function SpreadsheetPage() {
   const spreadsheetId = params.id ? parseInt(params.id) : 1;
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedCells, setSelectedCells] = useState<{ row: number; column: number; sheetId: number }[]>([]);
+  const [selectionRange, setSelectionRange] = useState<{
+    startRow: number;
+    startCol: number; 
+    endRow: number;
+    endCol: number;
+  } | null>(null);
   const [formulaBarVisible, setFormulaBarVisible] = useState(true);
   const [gridLinesVisible, setGridLinesVisible] = useState(true);
   const [zoom, setZoom] = useState(100);
