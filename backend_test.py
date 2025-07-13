@@ -19,6 +19,10 @@ class UltimatePixelSheetsAPITester:
         url = f"{self.base_url}/{endpoint}"
         if headers is None:
             headers = {'Content-Type': 'application/json'}
+        
+        # Add authorization header if we have a token
+        if self.access_token and not endpoint.startswith('api/auth/'):
+            headers['Authorization'] = f'Bearer {self.access_token}'
 
         self.tests_run += 1
         print(f"\n🔍 Testing {name}...")
