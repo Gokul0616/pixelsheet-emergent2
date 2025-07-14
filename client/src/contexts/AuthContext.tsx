@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       if (!tokens) return;
       
-      const data = await apiRequest('/api/auth/profile');
+      const data = await apiRequest('/api/auth/me');
       setUser(data.user);
     } catch (error) {
       console.error('Failed to load profile:', error);

@@ -39,6 +39,10 @@ export function DashboardPage() {
   // Create new spreadsheet mutation
   const createSpreadsheetMutation = useMutation({
     mutationFn: async (name: string) => {
+      console.log('Creating spreadsheet with name:', name);
+      const token = localStorage.getItem('accessToken');
+      console.log('Using token:', token ? 'Present' : 'Missing');
+      
       const response = await apiRequest('POST', '/api/spreadsheets', { name });
       return response.json();
     },
