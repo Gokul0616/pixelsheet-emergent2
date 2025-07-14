@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '@/contexts/AuthContext';
 import { Eye, EyeOff, Shield, Mail, Lock, User, AlertCircle, Check, X } from 'lucide-react';
 
 export function RegisterForm() {
