@@ -894,16 +894,20 @@ export function ResizableGrid({
               
               {/* Row resize handle */}
               <div
-                className="absolute bg-transparent hover:bg-blue-500 cursor-row-resize z-10"
+                className="absolute bg-gray-300 hover:bg-blue-500 cursor-row-resize z-10 opacity-70 hover:opacity-100 transition-all duration-150"
                 style={{
                   left: 0,
-                  top: top + height - 2,
+                  top: top + height - 3,
                   width: headerWidth,
-                  height: 4
+                  height: 6
                 }}
                 onMouseDown={(e) => handleResizeStart(e, 'row', rowIndex)}
                 onDoubleClick={() => handleDoubleClickResize('row', rowIndex)}
                 title="Drag to resize, double-click to auto-fit"
+              >
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="h-0.5 w-4 bg-white opacity-50"></div>
+                </div>
               />
               
               {/* Cells in this row */}
