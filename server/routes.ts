@@ -100,6 +100,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = (req as any).user.id;
       const data = insertSpreadsheetSchema.parse({ ...req.body, ownerId: userId });
       const spreadsheet = await jsonStorage.createSpreadsheet(data);
+      
+      // Create a default sheet for the new spreadsheet
+      const defaultSheet = await jsonStorage.createSheet({
+        spreadsheetId: spreadsheet.id,
+        name: "Sheet1",
+        index: 0,
+      });
+      
       res.json(spreadsheet);
     } catch (error) {
       res.status(400).json({ error: "Invalid spreadsheet data" });

@@ -1,8 +1,8 @@
-# Replit.md - Ultimate Pixel Sheets
+# Replit.md - PixelSheet
 
 ## Overview
 
-This is a comprehensive Google Sheets clone built with modern web technologies. The application features a full-stack architecture with real-time collaboration capabilities, advanced spreadsheet functionality, and a polished user interface that closely mimics Google Sheets. 
+PixelSheet is a comprehensive Google Sheets clone built with modern web technologies. The application features a full-stack architecture with real-time collaboration capabilities, advanced spreadsheet functionality, and a polished user interface that closely mimics Google Sheets. 
 
 ### Recent Updates (January 2025)
 - ✓ Implemented comprehensive FormattingToolbar with bold, italic, underline, font selection, colors, and alignment

@@ -33,19 +33,5 @@
     "ownerId": 3,
     "createdAt": "2025-07-14T02:02:41.684Z",
     "updatedAt": "2025-07-14T02:02:41.684Z"
-  },
-  {
-    "id": 5,
-    "name": "first",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T02:03:12.101Z",
-    "updatedAt": "2025-07-14T02:03:12.101Z"
-  },
-  {
-    "id": 6,
-    "name": "first",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T02:03:23.756Z",
-    "updatedAt": "2025-07-14T02:03:23.756Z"
   }
 ]

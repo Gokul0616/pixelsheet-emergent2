@@ -141,7 +141,7 @@ export default function LandingPage() {
     {
       name: "Sarah Chen",
       role: "Data Analyst at TechCorp",
-      content: "Ultimate Pixel Sheets has transformed how our team analyzes data. The real-time collaboration features are game-changing.",
+      content: "PixelSheet has transformed how our team analyzes data. The real-time collaboration features are game-changing.",
       rating: 5
     },
     {
@@ -169,7 +169,7 @@ export default function LandingPage() {
                 <FileSpreadsheet className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Ultimate Pixel Sheets
+                PixelSheet
               </h1>
             </div>
             <div className="flex items-center space-x-4">
