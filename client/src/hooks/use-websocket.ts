@@ -25,8 +25,11 @@ export function useWebSocket(spreadsheetId: number, userId: number, username: st
 
   const connect = () => {
     try {
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const wsUrl = `${protocol}//${window.location.host}/ws`;
+      // Get backend URL from environment variable
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      const url = new URL(backendUrl);
+      const protocol = url.protocol === "https:" ? "wss:" : "ws:";
+      const wsUrl = `${protocol}//${url.host}/ws`;
       
       const ws = new WebSocket(wsUrl);
       
