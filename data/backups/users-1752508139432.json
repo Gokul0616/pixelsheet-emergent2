@@ -37,17 +37,5 @@
     "createdAt": "2025-07-14T02:00:42.951Z",
     "updatedAt": "2025-07-14T15:48:39.783Z",
     "lastLogin": "2025-07-14T02:10:30.842Z"
-  },
-  {
-    "id": 4,
-    "username": "testuser2",
-    "email": "test2@example.com",
-    "password": "$2a$12$AMT/ZugQUAYWRVzrCy1GReFiw8/QFH7ScEjDHtWzyHlHJJnfe74KW",
-    "role": "editor",
-    "mfaEnabled": false,
-    "emailVerified": false,
-    "loginAttempts": 0,
-    "createdAt": "2025-07-14T15:48:59.432Z",
-    "updatedAt": "2025-07-14T15:48:59.432Z"
   }
 ]
