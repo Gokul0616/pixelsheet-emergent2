@@ -141,7 +141,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Store access token
-      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('accessToken', data.tokens.accessToken);
       setUser(data.user);
 
       toast({

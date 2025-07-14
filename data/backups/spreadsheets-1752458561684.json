@@ -26,12 +26,5 @@
     "ownerId": 3,
     "createdAt": "2025-07-14T02:02:24.329Z",
     "updatedAt": "2025-07-14T02:02:24.329Z"
-  },
-  {
-    "id": 4,
-    "name": "New Spreadsheet from Frontend",
-    "ownerId": 3,
-    "createdAt": "2025-07-14T02:02:41.684Z",
-    "updatedAt": "2025-07-14T02:02:41.684Z"
   }
 ]

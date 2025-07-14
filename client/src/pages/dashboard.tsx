@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
 import { 
   Plus, 
   FileSpreadsheet, 
@@ -38,15 +39,7 @@ export function DashboardPage() {
   // Create new spreadsheet mutation
   const createSpreadsheetMutation = useMutation({
     mutationFn: async (name: string) => {
-      const response = await fetch('/api/spreadsheets', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        },
-        body: JSON.stringify({ name }),
-      });
-      if (!response.ok) throw new Error('Failed to create spreadsheet');
+      const response = await apiRequest('POST', '/api/spreadsheets', { name });
       return response.json();
     },
     onSuccess: (data) => {
