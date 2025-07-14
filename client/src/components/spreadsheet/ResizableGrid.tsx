@@ -915,7 +915,7 @@ export function ResizableGrid({
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="h-0.5 w-4 bg-white opacity-50"></div>
                 </div>
-              />
+              </div>
               
               {/* Cells in this row */}
               {Array.from({ length: 26 }, (_, col) => {
