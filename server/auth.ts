@@ -78,9 +78,12 @@ export class AuthService {
   verifyToken(token: string, isRefresh = false): { userId: number } | null {
     try {
       const secret = isRefresh ? JWT_REFRESH_SECRET : JWT_SECRET;
+      console.log('Token verification - using secret:', secret.substring(0, 10) + '...');
       const decoded = jwt.verify(token, secret) as { userId: number };
+      console.log('Token verification - success for user:', decoded.userId);
       return decoded;
-    } catch {
+    } catch (error) {
+      console.log('Token verification - failed:', error.message);
       return null;
     }
   }
