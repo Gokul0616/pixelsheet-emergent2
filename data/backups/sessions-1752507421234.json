@@ -205,14 +205,5 @@
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1MjUwNzMzNCwiZXhwIjoxNzUzMTEyMTM0fQ.BLZOZSAG9wcwFaWvf7MFY1LFQUUD8dkRg-hB5IMBM5c",
     "expiresAt": "2025-07-15T15:35:34.591Z",
     "isRememberMe": false
-  },
-  {
-    "id": "a567c9a4-502f-47d8-8d96-a0d0778fbf2f",
-    "createdAt": "2025-07-14T15:37:01.234Z",
-    "userId": 1,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1MjUwNzQyMSwiZXhwIjoxNzUyNTkzODIxfQ.tBK5s9ULnMdsx9zJ9E_MqlsJsILbM0TDcoS5Y2vycuY",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1MjUwNzQyMSwiZXhwIjoxNzUzMTEyMjIxfQ.b62OGOoqNW0_f335qfUaogdiooKbaybdXMIPLcIyJUU",
-    "expiresAt": "2025-07-15T15:37:01.233Z",
-    "isRememberMe": false
   }
 ]
