@@ -230,6 +230,8 @@ export function DashboardPage() {
                   <CardContent className="pb-2">
                     <CardDescription className="text-xs">
                       Last modified: {formatDate(spreadsheet.updatedAt)}
+                      <br />
+                      <span className="text-gray-400">ID: {spreadsheet.id} | Owner: {spreadsheet.ownerId}</span>
                     </CardDescription>
                     
                     <div className="flex items-center space-x-4 mt-2">

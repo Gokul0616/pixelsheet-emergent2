@@ -61,19 +61,5 @@
     "ownerId": 1,
     "createdAt": "2025-07-14T02:07:59.547Z",
     "updatedAt": "2025-07-14T02:07:59.547Z"
-  },
-  {
-    "id": 9,
-    "name": "first",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T02:09:23.062Z",
-    "updatedAt": "2025-07-14T02:09:23.062Z"
-  },
-  {
-    "id": 10,
-    "name": "Test User 3 Spreadsheet",
-    "ownerId": 3,
-    "createdAt": "2025-07-14T02:10:44.393Z",
-    "updatedAt": "2025-07-14T02:10:44.393Z"
   }
 ]
