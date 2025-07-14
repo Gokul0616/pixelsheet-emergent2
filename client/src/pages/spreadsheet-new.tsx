@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'wouter';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { GoogleSheetsGrid } from '@/components/spreadsheet/GoogleSheetsGrid';
+import { PixelSheetGrid } from '@/components/spreadsheet/GoogleSheetsGrid';
 import { RealTimeCollaboration } from '@/components/spreadsheet/RealTimeCollaboration';
 import { FormulaBar } from '@/components/spreadsheet/FormulaBar';
 import { MenuBar } from '@/components/spreadsheet/MenuBar';
@@ -142,7 +142,7 @@ export function SpreadsheetPage() {
     setIsEditing(false);
     
     // Update formula bar with selected cell value
-    // This will be implemented in the GoogleSheetsGrid component
+    // This will be implemented in the PixelSheetGrid component
   };
 
   const handleMenuAction = (action: string, data?: any) => {
@@ -433,7 +433,7 @@ export function SpreadsheetPage() {
           </div>
 
           {/* Grid */}
-          <GoogleSheetsGrid
+          <PixelSheetGrid
             sheetId={activeSheet}
             selectedCell={selectedCell}
             isEditing={isEditing}

@@ -75,19 +75,5 @@
     "ownerId": 3,
     "createdAt": "2025-07-14T02:10:44.393Z",
     "updatedAt": "2025-07-14T02:10:44.393Z"
-  },
-  {
-    "id": 11,
-    "name": "first1",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T02:12:02.349Z",
-    "updatedAt": "2025-07-14T02:12:02.349Z"
-  },
-  {
-    "id": 12,
-    "name": "firdt",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T02:13:46.850Z",
-    "updatedAt": "2025-07-14T02:13:46.850Z"
   }
 ]

@@ -8,6 +8,7 @@ import { RegisterForm } from '@/components/auth/RegisterForm';
 import { SpreadsheetPage } from '@/pages/spreadsheet-new';
 import LandingPage from '@/pages/landing';
 import { DashboardPage } from '@/pages/dashboard';
+import { DashboardNew } from '@/pages/dashboard-new';
 import '@/index.css';
 
 const queryClient = new QueryClient({
@@ -28,7 +29,7 @@ export default function App() {
             <Route path="/" component={LandingPage} />
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
-            <Route path="/dashboard" component={DashboardPage} />
+            <Route path="/dashboard" component={DashboardNew} />
             <Route path="/spreadsheet/:id" component={SpreadsheetPage} />
             <Route>
               <Redirect to="/" />

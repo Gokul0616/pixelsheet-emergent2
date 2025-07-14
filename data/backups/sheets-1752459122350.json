@@ -38,21 +38,5 @@
     "index": 0,
     "createdAt": "2025-07-14T02:10:44.394Z",
     "updatedAt": "2025-07-14T02:10:44.394Z"
-  },
-  {
-    "id": 7,
-    "spreadsheetId": 11,
-    "name": "Sheet1",
-    "index": 0,
-    "createdAt": "2025-07-14T02:12:02.350Z",
-    "updatedAt": "2025-07-14T02:12:02.350Z"
-  },
-  {
-    "id": 8,
-    "spreadsheetId": 12,
-    "name": "Sheet1",
-    "index": 0,
-    "createdAt": "2025-07-14T02:13:46.851Z",
-    "updatedAt": "2025-07-14T02:13:46.851Z"
   }
 ]

@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
-interface GoogleSheetsGridProps {
+interface PixelSheetGridProps {
   sheetId: number;
   selectedCell: { row: number; column: number; sheetId: number } | null;
   isEditing: boolean;
@@ -40,7 +40,7 @@ interface ClipboardData {
   range: SelectionRange;
 }
 
-export function GoogleSheetsGrid({
+export function PixelSheetGrid({
   sheetId,
   selectedCell,
   isEditing,
@@ -52,8 +52,8 @@ export function GoogleSheetsGrid({
   gridLinesVisible,
   zoom,
   onCellSelect
-}: GoogleSheetsGridProps) {
-  // States for Google Sheets features
+}: PixelSheetGridProps) {
+  // States for PixelSheet grid features
   const [selectionRange, setSelectionRange] = useState<SelectionRange | null>(null);
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectionStartCell, setSelectionStartCell] = useState<{ row: number; column: number } | null>(null);
@@ -191,7 +191,7 @@ export function GoogleSheetsGrid({
     return selectedCell?.row === row && selectedCell?.column === col;
   }, [selectedCell]);
 
-  // Google Sheets-like keyboard shortcuts
+  // PixelSheet keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isEditing) return;

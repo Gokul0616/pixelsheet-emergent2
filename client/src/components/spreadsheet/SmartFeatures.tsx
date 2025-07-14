@@ -330,7 +330,7 @@ function ImportDataDialog({ onAction }: { onAction: (action: string, data?: any)
                 <SelectItem value="xml">XML Data</SelectItem>
                 <SelectItem value="html">HTML Table</SelectItem>
                 <SelectItem value="database">Database Query</SelectItem>
-                <SelectItem value="google-finance">Google Finance</SelectItem>
+                <SelectItem value="finance">Finance API</SelectItem>
                 <SelectItem value="web-scraping">Web Scraping</SelectItem>
               </SelectContent>
             </Select>

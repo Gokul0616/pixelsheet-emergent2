@@ -26,21 +26,21 @@
   --ring: hsl(221, 83%, 53%);
   --radius: 0.5rem;
 
-  /* Google Sheets specific colors */
-  --google-blue: hsl(211, 100%, 50%);
-  --google-green: hsl(120, 52%, 44%);
-  --google-yellow: hsl(45, 100%, 51%);
-  --google-red: hsl(4, 90%, 58%);
-  --google-gray-50: hsl(210, 20%, 98%);
-  --google-gray-100: hsl(220, 14%, 96%);
-  --google-gray-200: hsl(220, 13%, 91%);
-  --google-gray-300: hsl(216, 12%, 84%);
-  --google-gray-400: hsl(218, 11%, 65%);
-  --google-gray-500: hsl(220, 9%, 46%);
-  --google-gray-600: hsl(215, 14%, 34%);
-  --google-gray-700: hsl(217, 19%, 27%);
-  --google-gray-800: hsl(215, 28%, 17%);
-  --google-gray-900: hsl(221, 39%, 11%);
+  /* PixelSheet brand colors */
+  --pixel-blue: hsl(211, 100%, 50%);
+  --pixel-green: hsl(120, 52%, 44%);
+  --pixel-yellow: hsl(45, 100%, 51%);
+  --pixel-red: hsl(4, 90%, 58%);
+  --pixel-gray-50: hsl(210, 20%, 98%);
+  --pixel-gray-100: hsl(220, 14%, 96%);
+  --pixel-gray-200: hsl(220, 13%, 91%);
+  --pixel-gray-300: hsl(216, 12%, 84%);
+  --pixel-gray-400: hsl(218, 11%, 65%);
+  --pixel-gray-500: hsl(220, 9%, 46%);
+  --pixel-gray-600: hsl(215, 14%, 34%);
+  --pixel-gray-700: hsl(217, 19%, 27%);
+  --pixel-gray-800: hsl(215, 28%, 17%);
+  --pixel-gray-900: hsl(221, 39%, 11%);
 }
 
 .dark {
