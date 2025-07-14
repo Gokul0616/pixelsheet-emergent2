@@ -810,7 +810,7 @@ export function ResizableGrid({
           }}
         >
           <div className="w-2 h-2 border border-gray-400 rounded-sm"></div>
-        />
+        </div>
         
         {/* Column headers */}
         {Array.from({ length: 26 }, (_, col) => {
