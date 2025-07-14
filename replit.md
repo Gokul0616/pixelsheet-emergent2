@@ -13,6 +13,8 @@ PixelSheet is a comprehensive Google Sheets clone built with modern web technolo
 - ✓ Successfully migrated from Replit Agent to Replit environment (July 2025)
 - ✓ Fixed authentication token handling and API integration (July 2025)
 - ✓ Fixed cell value display and editing functionality with proper API integration
+- ✓ Fixed "sheet not found" error by auto-creating default Sheet1 when spreadsheets are created or accessed
+- ✓ Renamed application from "Ultimate Pixel Sheets" to "PixelSheet" throughout the application
 - ✓ Implemented advanced features: Data validation, conditional formatting, pivot tables
 - ✓ Added column/row resizing with drag borders and auto-fit functionality
 - ✓ Enhanced import/export capabilities with multiple formats (Excel, PDF, JSON)

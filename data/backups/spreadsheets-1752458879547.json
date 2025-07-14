@@ -54,12 +54,5 @@
     "ownerId": 1,
     "createdAt": "2025-07-14T02:05:32.250Z",
     "updatedAt": "2025-07-14T02:05:32.250Z"
-  },
-  {
-    "id": 8,
-    "name": "first",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T02:07:59.547Z",
-    "updatedAt": "2025-07-14T02:07:59.547Z"
   }
 ]

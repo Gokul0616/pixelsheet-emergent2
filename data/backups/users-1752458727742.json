@@ -9,8 +9,8 @@
     "emailVerified": true,
     "loginAttempts": 0,
     "createdAt": "2025-07-13T12:09:20.414Z",
-    "updatedAt": "2025-07-14T02:08:26.781Z",
-    "lastLogin": "2025-07-14T02:08:26.781Z"
+    "updatedAt": "2025-07-14T02:03:06.381Z",
+    "lastLogin": "2025-07-14T02:03:06.381Z"
   },
   {
     "id": 2,
@@ -35,7 +35,7 @@
     "emailVerified": false,
     "loginAttempts": 0,
     "createdAt": "2025-07-14T02:00:42.951Z",
-    "updatedAt": "2025-07-14T02:07:43.901Z",
-    "lastLogin": "2025-07-14T02:07:43.901Z"
+    "updatedAt": "2025-07-14T02:02:32.786Z",
+    "lastLogin": "2025-07-14T02:02:32.786Z"
   }
 ]

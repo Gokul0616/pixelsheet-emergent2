@@ -613,7 +613,7 @@ export default function SpreadsheetPage() {
 
       // Use the enhanced export system
       const blob = await SpreadsheetExporter.exportSpreadsheet(cells, format as any, {
-        sheetName: spreadsheet?.name || 'Ultimate Pixel Sheet',
+        sheetName: spreadsheet?.name || 'PixelSheet',
         includeFormatting: options.includeFormatting !== false,
         includeFormulas: options.includeFormulas !== false,
       });
@@ -653,6 +653,41 @@ export default function SpreadsheetPage() {
     );
   }
 
+  // Auto-create a default sheet if none exist
+  if (!isLoadingSheets && sheets && sheets.length === 0) {
+    // Create default sheet
+    const createDefaultSheet = async () => {
+      try {
+        const response = await fetch(`/api/spreadsheets/${spreadsheetId}/sheets`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          },
+          body: JSON.stringify({ name: 'Sheet1', index: 0 }),
+        });
+        
+        if (response.ok) {
+          // Refresh the sheets query
+          queryClient.invalidateQueries({ queryKey: ["/api/spreadsheets", spreadsheetId, "sheets"] });
+        }
+      } catch (error) {
+        console.error('Failed to create default sheet:', error);
+      }
+    };
+    
+    createDefaultSheet();
+    
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="flex items-center space-x-4">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <span className="text-lg">Creating default sheet...</span>
+        </div>
+      </div>
+    );
+  }
+
   const currentSheet = sheets?.find(s => s.id === activeSheet) || sheets?.[0];
 
   return (
@@ -667,7 +702,7 @@ export default function SpreadsheetPage() {
                   <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                 </svg>
               </div>
-              <h1 className="text-lg font-medium text-gray-800">Ultimate Pixel Sheets</h1>
+              <h1 className="text-lg font-medium text-gray-800">PixelSheet</h1>
             </div>
             <div className="flex items-center space-x-2">
               <Input
