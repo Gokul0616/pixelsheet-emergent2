@@ -117,12 +117,5 @@
     "ownerId": 4,
     "createdAt": "2025-07-14T15:49:05.365Z",
     "updatedAt": "2025-07-14T15:49:05.365Z"
-  },
-  {
-    "id": 17,
-    "name": "Fixed Spreadsheet Test",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T15:50:03.641Z",
-    "updatedAt": "2025-07-14T15:50:03.641Z"
   }
 ]
