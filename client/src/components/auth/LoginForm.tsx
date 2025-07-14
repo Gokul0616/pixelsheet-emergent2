@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '@/contexts/AuthContext';
 import { Eye, EyeOff, Shield, Mail, Lock, AlertCircle } from 'lucide-react';
 
 export function LoginForm() {
@@ -28,17 +28,12 @@ export function LoginForm() {
     setError('');
 
     try {
-      const result = await login({
-        email,
-        password,
-        twoFactorToken: showTwoFactor ? twoFactorToken : undefined,
-        rememberMe,
-      });
+      const result = await login(email, password, rememberMe);
 
-      if (result.requiresTwoFactor) {
+      if (result.requiresMfa) {
         setShowTwoFactor(true);
         setError('');
-      } else if (result.success) {
+      } else {
         setLocation('/dashboard');
       }
     } catch (err: any) {

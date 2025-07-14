@@ -35,7 +35,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [tokens, setTokens] = useState<{ accessToken: string; refreshToken: string } | null>(() => {
     const stored = localStorage.getItem('auth_tokens');
-    return stored ? JSON.parse(stored) : null;
+    if (stored) {
+      const parsedTokens = JSON.parse(stored);
+      // Ensure individual tokens are also available for queryClient
+      localStorage.setItem('accessToken', parsedTokens.accessToken);
+      localStorage.setItem('refreshToken', parsedTokens.refreshToken);
+      return parsedTokens;
+    }
+    return null;
   });
 
   const isAuthenticated = !!user && !!tokens;
@@ -44,12 +51,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const saveTokens = (newTokens: { accessToken: string; refreshToken: string }) => {
     setTokens(newTokens);
     localStorage.setItem('auth_tokens', JSON.stringify(newTokens));
+    // Also save individual tokens for compatibility with queryClient
+    localStorage.setItem('accessToken', newTokens.accessToken);
+    localStorage.setItem('refreshToken', newTokens.refreshToken);
   };
 
   // Clear tokens from localStorage
   const clearTokens = () => {
     setTokens(null);
     localStorage.removeItem('auth_tokens');
+    // Also clear individual tokens for compatibility with queryClient
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   };
 
   // Make authenticated API request

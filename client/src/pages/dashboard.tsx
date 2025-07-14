@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/components/auth/AuthProvider';
+import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { 
@@ -103,7 +103,7 @@ export function DashboardPage() {
               <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
                 <FileSpreadsheet className="w-4 h-4 text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Google Sheets Clone</h1>
+              <h1 className="text-2xl font-bold text-gray-900">PixelSheet</h1>
             </div>
             
             <div className="flex items-center space-x-4">
