@@ -7,10 +7,10 @@
     "role": "admin",
     "mfaEnabled": false,
     "emailVerified": true,
-    "loginAttempts": 0,
+    "loginAttempts": 1,
     "createdAt": "2025-07-13T12:09:20.414Z",
-    "updatedAt": "2025-07-14T15:49:47.635Z",
-    "lastLogin": "2025-07-14T15:49:47.635Z"
+    "updatedAt": "2025-07-14T15:48:54.495Z",
+    "lastLogin": "2025-07-14T15:41:18.666Z"
   },
   {
     "id": 2,
