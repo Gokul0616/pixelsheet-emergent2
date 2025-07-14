@@ -319,7 +319,10 @@ export function authenticateToken(storage: JsonFileStorage) {
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
+      console.log('Auth middleware - Path:', req.path, 'Header:', authHeader ? 'Present' : 'Missing');
+
       if (!token) {
+        console.log('Auth middleware - No token provided');
         return res.status(401).json({ error: 'Access token required' });
       }
 
@@ -328,25 +331,30 @@ export function authenticateToken(storage: JsonFileStorage) {
       const decoded = authService.verifyToken(token);
       
       if (!decoded) {
+        console.log('Auth middleware - Token verification failed');
         return res.status(401).json({ error: 'Invalid or expired token' });
       }
 
       // Get session
       const session = await storage.getSession(token);
       if (!session || session.expiresAt < new Date()) {
+        console.log('Auth middleware - Session not found or expired');
         return res.status(401).json({ error: 'Session expired' });
       }
 
       // Get user
       const user = await storage.getUser(decoded.userId) as AuthUser;
       if (!user) {
+        console.log('Auth middleware - User not found for ID:', decoded.userId);
         return res.status(401).json({ error: 'User not found' });
       }
 
+      console.log('Auth middleware - User authenticated:', user.id, user.email);
       req.user = user;
       req.session = session;
       next();
     } catch (error) {
+      console.log('Auth middleware - Error:', error.message);
       res.status(401).json({ error: 'Authentication failed' });
     }
   };

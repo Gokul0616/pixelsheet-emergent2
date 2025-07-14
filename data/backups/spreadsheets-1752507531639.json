@@ -96,12 +96,5 @@
     "ownerId": 1,
     "createdAt": "2025-07-14T15:33:19.440Z",
     "updatedAt": "2025-07-14T15:33:19.440Z"
-  },
-  {
-    "id": 14,
-    "name": "Test Direct",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T15:38:51.638Z",
-    "updatedAt": "2025-07-14T15:38:51.638Z"
   }
 ]
