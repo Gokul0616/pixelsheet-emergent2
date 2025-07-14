@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Route, Switch, Redirect } from 'wouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
@@ -6,7 +6,7 @@ import { AuthProvider } from '@/components/auth/AuthProvider';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { SpreadsheetPage } from '@/pages/spreadsheet-new';
-import { LandingPage } from '@/pages/landing';
+import LandingPage from '@/pages/landing';
 import { DashboardPage } from '@/pages/dashboard';
 import '@/index.css';
 

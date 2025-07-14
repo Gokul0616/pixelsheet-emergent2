@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,7 +21,6 @@ export function LoginForm() {
 
   const { login } = useAuth();
   const [, setLocation] = useLocation();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +39,7 @@ export function LoginForm() {
         setShowTwoFactor(true);
         setError('');
       } else if (result.success) {
-        navigate('/dashboard');
+        setLocation('/dashboard');
       }
     } catch (err: any) {
       setError(err.message);

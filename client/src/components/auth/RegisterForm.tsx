@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,7 +22,7 @@ export function RegisterForm() {
   const [error, setError] = useState('');
 
   const { register } = useAuth();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   // Password strength calculation
   const getPasswordStrength = (pass: string) => {
@@ -83,7 +83,7 @@ export function RegisterForm() {
         confirmPassword,
       });
       
-      navigate('/verify-email');
+      setLocation('/verify-email');
     } catch (err: any) {
       setError(err.message);
     } finally {
