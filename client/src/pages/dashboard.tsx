@@ -43,7 +43,20 @@ export function DashboardPage() {
       const token = localStorage.getItem('accessToken');
       console.log('Using token:', token ? 'Present' : 'Missing');
       
-      const response = await apiRequest('POST', '/api/spreadsheets', { name });
+      const response = await fetch('/api/spreadsheets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        },
+        body: JSON.stringify({ name })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create spreadsheet');
+      }
+      
       return response.json();
     },
     onSuccess: (data) => {
