@@ -61,6 +61,13 @@ export function LoginForm() {
               : 'Welcome back! Please sign in to your account'
             }
           </CardDescription>
+          {!showTwoFactor && (
+            <div className="bg-blue-50 p-3 rounded-lg text-sm">
+              <p className="font-medium text-blue-900 mb-1">Demo Credentials:</p>
+              <p className="text-blue-700">Admin: admin@pixelsheets.com / admin123</p>
+              <p className="text-blue-700">Demo: demo@pixelsheets.com / demo123</p>
+            </div>
+          )}
         </CardHeader>
 
         <form onSubmit={handleSubmit}>
