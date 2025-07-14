@@ -87,8 +87,11 @@ export function RealTimeCollaboration({ spreadsheetId, currentUserId }: RealTime
 
   // WebSocket connection for real-time features
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}/ws/spreadsheet/${spreadsheetId}`;
+    // Get backend URL from environment variable
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+    const url = new URL(backendUrl);
+    const protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${url.host}/ws/spreadsheet/${spreadsheetId}`;
     
     const websocket = new WebSocket(wsUrl);
     
