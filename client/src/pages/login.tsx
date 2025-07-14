@@ -53,7 +53,7 @@ export default function LoginPage() {
           title: "Welcome back!",
           description: "You have been successfully logged in.",
         });
-        setLocation("/spreadsheet/1");
+        setLocation("/dashboard");
       }
     } catch (error) {
       setError(error instanceof Error ? error.message : "Login failed");
