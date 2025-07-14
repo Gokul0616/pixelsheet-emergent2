@@ -13,6 +13,8 @@ export async function apiRequest(
   data?: unknown | undefined,
 ): Promise<Response> {
   const token = localStorage.getItem('accessToken');
+  console.log('apiRequest - Token check:', token ? 'Present' : 'Missing', 'URL:', url);
+  
   const headers: Record<string, string> = {
     ...(data ? { "Content-Type": "application/json" } : {}),
     ...(token ? { "Authorization": `Bearer ${token}` } : {}),
@@ -25,6 +27,7 @@ export async function apiRequest(
     credentials: "include",
   });
 
+  console.log('apiRequest - Response:', res.status, res.statusText);
   await throwIfResNotOk(res);
   return res;
 }

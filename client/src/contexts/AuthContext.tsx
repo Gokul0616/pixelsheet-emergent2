@@ -154,6 +154,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     saveTokens(data.tokens);
     setUser(data.user);
+    console.log('Login complete - tokens saved:', localStorage.getItem('accessToken') ? 'Yes' : 'No');
     return {};
   };
 
