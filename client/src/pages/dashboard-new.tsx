@@ -52,19 +52,7 @@ export function DashboardNew() {
   // Create spreadsheet mutation
   const createSpreadsheetMutation = useMutation({
     mutationFn: async (data: { name: string }) => {
-      const response = await fetch('/api/spreadsheets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify(data),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to create spreadsheet');
-      }
-      
+      const response = await apiRequest('POST', '/api/spreadsheets', data);
       return response.json();
     },
     onSuccess: (newSpreadsheet) => {
@@ -78,6 +66,7 @@ export function DashboardNew() {
       setLocation(`/spreadsheet/${newSpreadsheet.id}`);
     },
     onError: (error) => {
+      console.error('Create spreadsheet error:', error);
       toast({
         title: "Error",
         description: "Failed to create spreadsheet. Please try again.",
