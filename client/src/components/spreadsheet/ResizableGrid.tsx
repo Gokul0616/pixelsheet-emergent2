@@ -875,14 +875,16 @@ export function ResizableGrid({
               {/* Row header */}
               <div
                 className={`
-                  absolute border-r border-b border-gray-300 flex items-center justify-center text-xs font-medium cursor-pointer
-                  ${isSelected ? 'bg-blue-200 text-blue-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}
+                  absolute border-r border-b border-gray-300 flex items-center justify-center text-xs font-semibold cursor-pointer
+                  transition-colors duration-150 select-none
+                  ${isSelected ? 'bg-blue-200 text-blue-800 border-blue-400' : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-300'}
                 `}
                 style={{
                   left: 0,
                   top,
                   width: headerWidth,
-                  height
+                  height,
+                  boxShadow: isSelected ? '0 1px 3px rgba(59, 130, 246, 0.3)' : 'inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                 }}
                 onClick={(e) => handleRowHeaderClick(rowIndex, e.ctrlKey, e.shiftKey)}
                 onContextMenu={(e) => {
@@ -891,7 +893,7 @@ export function ResizableGrid({
                   setManualSize(String(height));
                 }}
               >
-                {rowIndex}
+                <span className="font-medium">{rowIndex}</span>
               </div>
               
               {/* Row resize handle */}
