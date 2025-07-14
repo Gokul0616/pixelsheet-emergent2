@@ -28,7 +28,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_BASE = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_BACKEND_URL || '';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -130,18 +130,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Login
   const login = async (email: string, password: string, rememberMe = false) => {
+    console.log('Login attempt:', { email, API_BASE });
     const response = await fetch(`${API_BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, rememberMe }),
     });
 
+    console.log('Login response:', response.status, response.statusText);
+
     if (!response.ok) {
       const error = await response.json();
+      console.error('Login error:', error);
       throw new Error(error.error || 'Login failed');
     }
 
     const data = await response.json();
+    console.log('Login success:', data);
 
     if (data.requiresMfa) {
       return { requiresMfa: true };
