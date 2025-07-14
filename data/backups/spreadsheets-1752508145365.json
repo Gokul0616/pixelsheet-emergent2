@@ -110,12 +110,5 @@
     "ownerId": 1,
     "createdAt": "2025-07-14T15:42:03.809Z",
     "updatedAt": "2025-07-14T15:42:03.809Z"
-  },
-  {
-    "id": 16,
-    "name": "Test Spreadsheet",
-    "ownerId": 4,
-    "createdAt": "2025-07-14T15:49:05.365Z",
-    "updatedAt": "2025-07-14T15:49:05.365Z"
   }
 ]
