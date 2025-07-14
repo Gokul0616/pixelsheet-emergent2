@@ -135,10 +135,8 @@ export function LoginForm() {
                       Remember me
                     </Label>
                   </div>
-                  <Link href="/reset-password">
-                    <a className="text-sm text-blue-600 hover:text-blue-500">
-                      Forgot password?
-                    </a>
+                  <Link href="/reset-password" className="text-sm text-blue-600 hover:text-blue-500">
+                    Forgot password?
                   </Link>
                 </div>
               </>
@@ -195,10 +193,8 @@ export function LoginForm() {
                 <span className="text-sm text-gray-600">
                   Don't have an account?{' '}
                 </span>
-                <Link href="/register">
-                  <a className="text-sm text-blue-600 hover:text-blue-500 font-medium">
-                    Sign up
-                  </a>
+                <Link href="/register" className="text-sm text-blue-600 hover:text-blue-500 font-medium">
+                  Sign up
                 </Link>
               </div>
             )}
