@@ -800,13 +800,16 @@ export function ResizableGrid({
         )}
         {/* Top-left corner */}
         <div 
-          className="absolute bg-gray-100 border-r border-b border-gray-300 flex items-center justify-center"
+          className="absolute bg-gray-50 border-r border-b border-gray-300 flex items-center justify-center text-xs font-semibold text-gray-500 select-none"
           style={{
             left: 0,
             top: 0,
             width: headerWidth,
-            height: headerHeight
+            height: headerHeight,
+            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)'
           }}
+        >
+          <div className="w-2 h-2 border border-gray-400 rounded-sm"></div>
         />
         
         {/* Column headers */}
