@@ -41,13 +41,13 @@ export function DashboardPage() {
     mutationFn: async (name: string) => {
       console.log('Creating spreadsheet with name:', name);
       const token = localStorage.getItem('accessToken');
-      console.log('Using token:', token ? 'Present' : 'Missing');
+      console.log('Using token:', token ? token.substring(0, 50) + '...' : 'Missing');
       
       const response = await fetch('/api/spreadsheets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ name })
       });

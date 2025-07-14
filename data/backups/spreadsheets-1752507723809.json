@@ -103,12 +103,5 @@
     "ownerId": 1,
     "createdAt": "2025-07-14T15:38:51.638Z",
     "updatedAt": "2025-07-14T15:38:51.638Z"
-  },
-  {
-    "id": 15,
-    "name": "Test Direct Again",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T15:42:03.809Z",
-    "updatedAt": "2025-07-14T15:42:03.809Z"
   }
 ]

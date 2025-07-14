@@ -70,13 +70,5 @@
     "index": 0,
     "createdAt": "2025-07-14T15:38:51.642Z",
     "updatedAt": "2025-07-14T15:38:51.642Z"
-  },
-  {
-    "id": 11,
-    "spreadsheetId": 15,
-    "name": "Sheet1",
-    "index": 0,
-    "createdAt": "2025-07-14T15:42:03.816Z",
-    "updatedAt": "2025-07-14T15:42:03.816Z"
   }
 ]
