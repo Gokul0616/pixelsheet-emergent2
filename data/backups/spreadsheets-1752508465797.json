@@ -124,12 +124,5 @@
     "ownerId": 1,
     "createdAt": "2025-07-14T15:50:03.641Z",
     "updatedAt": "2025-07-14T15:50:03.641Z"
-  },
-  {
-    "id": 18,
-    "name": "Test Spreadsheet from Fixed Code",
-    "ownerId": 1,
-    "createdAt": "2025-07-14T15:54:25.797Z",
-    "updatedAt": "2025-07-14T15:54:25.797Z"
   }
 ]
