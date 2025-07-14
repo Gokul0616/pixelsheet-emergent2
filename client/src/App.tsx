@@ -1,50 +1,42 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import NotFound from "@/pages/not-found";
-import SpreadsheetPage from "@/pages/spreadsheet";
-import LandingPage from "@/pages/landing";
-import LoginPage from "@/pages/login";
-import RegisterPage from "@/pages/register";
+import React from 'react';
+import { Route, Switch, Redirect } from 'wouter';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/components/auth/AuthProvider';
+import { LoginForm } from '@/components/auth/LoginForm';
+import { RegisterForm } from '@/components/auth/RegisterForm';
+import { SpreadsheetPage } from '@/pages/spreadsheet-new';
+import { LandingPage } from '@/pages/landing';
+import { DashboardPage } from '@/pages/dashboard';
+import '@/index.css';
 
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={LandingPage} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/register" component={RegisterPage} />
-      <Route path="/spreadsheet/:id">
-        {(params) => (
-          <ProtectedRoute>
-            <SpreadsheetPage />
-          </ProtectedRoute>
-        )}
-      </Route>
-      <Route path="/dashboard">
-        <ProtectedRoute>
-          <SpreadsheetPage />
-        </ProtectedRoute>
-      </Route>
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TooltipProvider>
+        <div className="min-h-screen bg-gray-50">
+          <Switch>
+            <Route path="/" component={LandingPage} />
+            <Route path="/login" component={LoginForm} />
+            <Route path="/register" component={RegisterForm} />
+            <Route path="/dashboard" component={DashboardPage} />
+            <Route path="/spreadsheet/:id" component={SpreadsheetPage} />
+            <Route>
+              <Redirect to="/" />
+            </Route>
+          </Switch>
           <Toaster />
-          <Router />
-        </TooltipProvider>
+        </div>
       </AuthProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
